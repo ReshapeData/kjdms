@@ -212,53 +212,7 @@
    
     
     #针对功能进行处理
-    observeEvent(input$prdGen_more_button,{
-      
-      shinyjs::disable(id = 'prdGen_more_button')
-      
-      role_name = user_info()$Fpermissions
-      
-      mdlMultipleMaterialServer::tabPanel_initial_Server(input,output,session,conn_cfg,app_id,role_name )
-      
-      
-    })
-    
-    #加载所有模块业务应收逾期报表
-    var_date_overDue = tsui::var_date('saleOverdueRpt_queryDate_date')
-    shiny::observeEvent(input$saleOverdueRpt_upload_btn,{
-      print('bug1')
-      req(credentials()$user_auth)
-      print('bug2')
-
-      user_detail <-function(fkey){
-        res <-tsui::userQueryField(app_id = app_id,user =user_info()$Fuser,key = fkey)
-        return(res)
-      }
-      print('bug3')
-      Fdepartment = user_detail('Fdepartment')
-      FBusinessGroup = user_detail('FBusinessGroup')
-      FBusinessMan = user_detail('FBusinessMan')
-      FCompanyScope = user_detail('FCompanyScope')
-      FDataScope = user_detail('FDataScope')
-      FDate = as.character(var_date_overDue())
-      print(Fdepartment)
-      print(FBusinessGroup)
-      print(FBusinessMan)
-      print(FCompanyScope)
-      print(FDataScope)
-      print('bug4')
-      data  = mdlSaleOverdueRptServer::overDueRpt_Query(FDate = FDate,
-                                                        Fdepartment = Fdepartment,
-                                                        FBusinessGroup = FBusinessGroup,
-                                                        FBusinessMan = FBusinessMan,
-                                                        FCompanyScope = FCompanyScope,
-                                                        FDataScope = FDataScope)
-      print('bug5')
-      print(data)
-      tsui::run_dataTable2(id = 'saleOverdueRpt_query_dataview',data = data)
-      file_name = paste0("业务应收逾期报表_",FDate,".xlsx")
-      tsui::run_download_xlsx(id = 'saleOverdueRpt_upload_btn',data = data,filename = file_name)
-    })
+  
   
     
     ncount_module  =nrow(module_data)
