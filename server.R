@@ -172,6 +172,8 @@
        
        #res <- setSideBarMenu(conn_be,app_id,user_info()$Fpermissions)
       tstk::debug_print('menu test start ')
+       #print(app_id)
+       #print(user_info()$Fpermissions)
        res <- tsui::menu_getItemData(app_id =app_id,permission = user_info()$Fpermissions )
        tstk::debug_print('menu test end ')
        return(res)
@@ -217,7 +219,7 @@
     
     ncount_module  =nrow(module_data)
     lapply(1:ncount_module, function(i){
-      load_server0(input,output,session,module_id = module_id[i],app_id = app_id)
+      tsui::load_serverLoader(input = input,output = output,session = session,module_id = module_id[i],app_id = app_id,dmsToken = dmsToken,erpToken = erpToken)
     })
     
     
